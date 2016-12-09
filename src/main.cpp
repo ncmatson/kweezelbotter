@@ -12,8 +12,9 @@
 #include <sstream>
 #include <vector>
 
-
 #define DICTIONARY_FILE "dict/dict.txt"
+
+int bigChunks = 0;
 
 /* splits the given string along the delimiter patern */
 std::vector<std::string> split(const std::string& str, char delim) {
@@ -35,6 +36,19 @@ std::vector<std::string> chunk(const std::string& str, int num) {
   //put one letter in each chunk until you only have one chunk left to fill
   int i;
   for (i = 0; i < str.length() && i < (num-1); ++i) {
+    //if str[i] is a vowel
+    char c = str[i];
+    if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'){
+      //c is not the second to last or last letter of str
+      if (i < str.length() - 1) {
+        //if str[i+1] is a vowel -> chunk them together
+        c = str[i+1];
+        if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'){
+          result.push_back(str.substr(i++,2));
+          continue;
+        }
+      }
+    }
     std::string s(1,str[i]);
     result.push_back(s);
   }
@@ -92,11 +106,25 @@ void loadTrainingSet( std::string fileName,
   }
 }
 
+void print( std::vector<std::vector<std::string>> words,
+            std::vector<std::vector<std::string>> pronunciations) {
+  for (int i = 0; i < words.size(); ++i) {
+    for (int j = 0; j < words[i].size(); ++j) {
+      std::cout<<words[i][j]<<"_";
+    }
+    std::cout << " : ";
+    for (int j = 0; j < pronunciations[i].size(); ++j) {
+      std::cout<<pronunciations[i][j]<<"_";
+    }
+    std::cout<<std::endl;
+  }
+  std::cout<<bigChunks<<std::endl;
+  std::cout<<words.size()<<std::endl;
+}
 
 int main() {
   std::vector<std::vector<std::string>> words;
   std::vector<std::vector<std::string>> pronunciations;
 
   loadTrainingSet(DICTIONARY_FILE,words,pronunciations);
-
 }
