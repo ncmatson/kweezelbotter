@@ -29,6 +29,44 @@ std::vector<std::string> split(const std::string& str, char delim) {
   return result;
 }
 
+bool isVowel(char c) {
+  switch (c) {
+    case 'A':
+    case 'E':
+    case 'I':
+    case 'O':
+    case 'U': return true; break;
+    default: return false;
+  }
+}
+
+/* Returns the number of letters following str[i] to chunk together
+ * Cases include:
+ * <vowel> <vowel>
+ * th
+ * sh
+ */
+int chunkTogether(const std::string& str, int i) {
+  //if the last letter -> don't chunk
+  if (i == str.length() - 1) return false;
+
+  switch (str[i]) {
+    case 'A':
+    case 'E':
+    case 'I':
+    case 'O':
+    case 'U': {
+      // if the next letter is a vowel -> CHUNK EM
+      if (isVowel(str[i+1])) { return 1; }
+    }
+    case 'T': {
+      // if the next letter is an h -> CHUNK EM
+      if (str[i+1] == 'H') {return 1;}
+    }
+    default: return 0;
+  }
+}
+
 //TODO: too many big chunks
 std::vector<std::string> chunk(const std::string& str, int num) {
   std::vector<std::string> result;
