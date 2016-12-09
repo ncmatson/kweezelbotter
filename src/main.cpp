@@ -74,10 +74,6 @@ std::vector<std::string> chunk(const std::string& str, int num) {
   //fill the last chunk wih the rest of the string
   if (i < str.length()) { result.push_back(str.substr(i)); }
 
-  for (int j = 0; j < result.size(); ++j) {
-    std::cout<<result[j]<<std::endl;
-  }
-
   return result;
 }
 
