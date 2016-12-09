@@ -63,10 +63,10 @@ std::vector<std::string> split(const std::string& str, char delim) {
 
 std::vector<std::string> chunk(const std::string& str, int num) {
   std::vector<std::string> result;
-  int i;
 
   //put one letter in each chunk until you only have one chunk left to fill
-  for (i = 0; i < str.length() && result.size() < (num-1); ++i) {
+  int i;
+  for (i = 0; i < str.length() && i < (num-1); ++i) {
     std::string s(1,str[i]);
     result.push_back(s);
   }
@@ -85,10 +85,6 @@ std::vector<std::string> chunk(const std::string& str, int num) {
 int main() {
   std::vector<std::string> words;
   std::vector<std::string> pronunciations;
-
-  std::string gravy("gravy");
-
-  std::vector<std::string> s = chunk(gravy,-1);
 
   loadTrainingSet(DICTIONARY_FILE,words,pronunciations);
 
