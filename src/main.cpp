@@ -49,6 +49,5 @@ int main() {
   std::vector<std::string> pronunciations;
 
   loadTrainingSet(DICTIONARY_FILE,words,pronunciations);
-  std::cout<<words.size()<<std::endl;
-  std::cout<<pronunciations.size()<<std::endl;
+
 }
