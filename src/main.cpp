@@ -57,11 +57,21 @@ int chunkTogether(const std::string& str, int i) {
     case 'O':
     case 'U': {
       // if the next letter is a vowel -> CHUNK EM
-      if (isVowel(str[i+1])) { return 1; }
+      if (isVowel(str[i+1])) {
+        // if next TWO letters are vowels ->CHUNK two of em
+        if (isVowel(str[i+2])) {return 2;}
+        return 1;
+      }
     }
     case 'T': {
       // if the next letter is an h -> CHUNK EM
-      if (str[i+1] == 'H') { return 1;}
+      if (str[i+1] == 'H' || str[i+1] == 'T') { return 1;}
+    }
+    case 'S': {
+      if (str[i+1] == 'H' || str[i+1] == 'S') {return 1;}
+    }
+    case 'C': {
+      if (str[i+1] == 'H' || str[i+1] == 'K') {return 1;}
     }
     default: return 0;
   }
@@ -140,6 +150,11 @@ void loadTrainingSet( std::string fileName,
   }
 }
 
+void printStats(int size) {
+  std::cout<<"bigChunks/words.size() : "<<bigChunks<<"/"<<size;
+  std::cout<<" = "<<(double)bigChunks/size<<std::endl;
+}
+
 void print( std::vector<std::vector<std::string>> words,
             std::vector<std::vector<std::string>> pronunciations) {
   for (int i = 0; i < words.size(); ++i) {
@@ -152,9 +167,11 @@ void print( std::vector<std::vector<std::string>> words,
     }
     std::cout<<std::endl;
   }
-  std::cout<<bigChunks<<std::endl;
-  std::cout<<words.size()<<std::endl;
+
+
+  printStats(words.size());
 }
+
 
 int main() {
   std::vector<std::vector<std::string>> words;
@@ -162,5 +179,5 @@ int main() {
 
 
   loadTrainingSet(DICTIONARY_FILE,words,pronunciations);
-  print(words, pronunciations);
+  printStats(words.size());
 }
