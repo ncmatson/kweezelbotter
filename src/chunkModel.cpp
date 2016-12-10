@@ -1,25 +1,52 @@
-/* Kweezelbotter is a pronunciation tool to pronounce
- * words like Kweezelbotter.
- *
- * Cameron Matson
- * Clayton Gentry
- * 2016
- */
-
-#include <algorithm>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-#include <vector>
+/* ChunkModel implementation */
 
 #include "chunkModel.h"
 
-#define DICTIONARY_FILE "dict/dict.txt"
+//TODO: I don't like the name of this function
+void ChunkModel::addLine(std::string line) {
+  std::string word;
+  std::string pronunciation;
 
-int bigChunks = 0;
+  std::vector<std::string> chunks;
+  std::vector<std::string> phonemes;
 
-/* splits the given string along the delimiter patern */
-std::vector<std::string> split(const std::string& str, char delim) {
+  std::stringstream ss(line);
+
+  //pick off word
+  ss >> word;
+
+  //pick of pronunciation
+  ss.get();
+  std::getline(ss, pronunciation);
+  pronunciation = pronunciation.substr(1);
+
+  //split phonemes
+  phonemes = split(pronunciation, ' ');
+
+  //chunk word s.t. the number of chunks = number of phonemes
+  chunks = chunk(word, phonemes.size());
+
+
+  for (int i = 0; i < chunks.size(); ++i) {
+    addChunkPhonemePair(chunks[i], phonemes[i]);
+  }
+
+  // pronunciations.push_back(phonemes);
+  // words.push_back(chunks)
+
+}
+
+void ChunkModel::addChunkPhonemePair(std::string c, std::string p){
+  Word chunk(c);
+  Word phoneme(p);
+
+  addOrUpdate(chunk);
+  find(chunk)->add_leader(phoneme);
+
+}
+
+
+std::vector<std::string> ChunkModel::split(const std::string& str, char delim) {
   std::vector<std::string> result;
   std::stringstream ss(str);
   std::string token;
@@ -31,7 +58,7 @@ std::vector<std::string> split(const std::string& str, char delim) {
   return result;
 }
 
-bool isVowel(char c) {
+bool ChunkModel::isVowel(char c) {
   switch (c) {
     case 'A':
     case 'E':
@@ -48,7 +75,7 @@ bool isVowel(char c) {
  * th
  * sh
  */
-int chunkTogether(const std::string& str, int i) {
+int ChunkModel::chunkTogether(const std::string& str, int i) {
   //if the last letter -> don't chunk
   if (i == str.length() - 1) return false;
 
@@ -87,7 +114,7 @@ int chunkTogether(const std::string& str, int i) {
  * If the number of chunks is one less than <num>, then the remaining letters in
  * word are placed in the final chunk.
  */
-std::vector<std::string> chunk(const std::string& str, int num) {
+std::vector<std::string> ChunkModel::chunk(const std::string& str, int num) {
   std::vector<std::string> result;
 
   //put one letter in each chunk until you only have one chunk left to fill
@@ -101,38 +128,6 @@ std::vector<std::string> chunk(const std::string& str, int num) {
 
   //fill the last chunk wih the rest of the string
   if (i < str.length()) { result.push_back(str.substr(i)); }
-  if (result[result.size()-1].length() > 2) bigChunks++;
 
   return result;
-}
-
-void loadTrainingSet( std::string fileName, ChunkModel* cm){
-  std::ifstream file(fileName);
-
-  if (file) {
-    std::string line;
-
-    while (std::getline(file,line)) {
-      if (line.substr(0,3) == ";;;") {
-        continue;
-      }
-      else {
-        cm->addLine(line);
-      }
-    }
-  }
-  else {
-    std::cerr << "Unable to load dictionary" << std::endl;
-  }
-}
-
-int main() {
-
-  ChunkModel* cm = new ChunkModel();
-
-  loadTrainingSet(DICTIONARY_FILE, cm);
-
-  std::cout<<cm->getSize()<<std::endl;
-
-  cm->print("data/matrix.txt");
 }
