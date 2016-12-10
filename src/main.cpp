@@ -61,34 +61,30 @@ int chunkTogether(const std::string& str, int i) {
     }
     case 'T': {
       // if the next letter is an h -> CHUNK EM
-      if (str[i+1] == 'H') {return 1;}
+      if (str[i+1] == 'H') { return 1;}
     }
     default: return 0;
   }
 }
 
 //TODO: too many big chunks
+/* Splits a word into <num> "chunks"
+ * Attempts to chunk letter patterns together appropriately.
+ *
+ * Default behavior is to do one letter per chunk
+ * If the number of chunks is one less than <num>, then the remaining letters in
+ * word are placed in the final chunk.
+ */
 std::vector<std::string> chunk(const std::string& str, int num) {
   std::vector<std::string> result;
 
   //put one letter in each chunk until you only have one chunk left to fill
   int i;
   for (i = 0; i < str.length() && i < (num-1); ++i) {
-    //if str[i] is a vowel
-    char c = str[i];
-    if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'){
-      //c is not the second to last or last letter of str
-      if (i < str.length() - 1) {
-        //if str[i+1] is a vowel -> chunk them together
-        c = str[i+1];
-        if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'){
-          result.push_back(str.substr(i++,2));
-          continue;
-        }
-      }
-    }
-    std::string s(1,str[i]);
-    result.push_back(s);
+    // offset is the number of letters following i that should be chunked together
+    int offset = chunkTogether(str,i);
+    result.push_back(str.substr(i, offset+1));
+    i += offset;
   }
 
   //fill the last chunk wih the rest of the string
@@ -164,5 +160,7 @@ int main() {
   std::vector<std::vector<std::string>> words;
   std::vector<std::vector<std::string>> pronunciations;
 
+
   loadTrainingSet(DICTIONARY_FILE,words,pronunciations);
+  print(words, pronunciations);
 }
