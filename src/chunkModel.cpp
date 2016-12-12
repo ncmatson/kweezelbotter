@@ -2,7 +2,19 @@
 
 #include "chunkModel.h"
 
+ChunkModel::ChunkModel() {}
 
+std::vector<std::vector<std::string>> chunkUnknown(std::string unknown) {
+  int maxChunkSize = 3;
+  std::vector<std::vector<std::string>> chunks;
+
+
+
+
+
+
+  return chunks;
+}
 
 //TODO: I don't like the name of this function
 void ChunkModel::addLine(std::string line) {
@@ -34,10 +46,7 @@ void ChunkModel::addLine(std::string line) {
     // skip if the word contains non-letter characters
     if (!isLetters(chunks[i])) continue;
 
-    if (chunks[i].length() > max.length()) max = chunks[i];
-
     addChunkPhonemePair(chunks[i], phonemes[i]);
-    chunkSizes.insert(chunks[i].size());
   }
 }
 

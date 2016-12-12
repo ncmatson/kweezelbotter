@@ -36,16 +36,14 @@ void loadTrainingSet( std::string fileName, ChunkModel* cm){
   }
 }
 
+
 int main() {
+  int a = 2^3;
+  std::cout<<a<<std::endl;
 
-  ChunkModel* cm = new ChunkModel();
+  // ChunkModel* cm = new ChunkModel();
+  //
+  // loadTrainingSet(DICTIONARY_FILE, cm);
 
-  loadTrainingSet(DICTIONARY_FILE, cm);
-
-  std::cout<<cm->getSize()<<std::endl;
-  cm->printSizes();
-
-  std::cout<<cm->getMax()<<std::endl;
-
-  cm->print("data/matrix.txt");
+  //cm->print("data/matrix.txt");
 }

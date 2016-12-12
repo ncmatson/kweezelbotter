@@ -12,17 +12,14 @@
 
 class ChunkModel : public Model {
 public:
-  std::string max;
+  ChunkModel();
+
   void addLine(std::string line);
   void addChunkPhonemePair(std::string chunk, std::string phoneme);
 
-  std::string getMax() { return max;}
+  //this will be moved to private
+  std::vector<std::vector<std::string>> chunkUnknown(std::string unknown);
 
-  void printSizes() {
-    for (auto i = chunkSizes.begin(); i != chunkSizes.end(); ++i) {
-      std::cout<<*i<<std::endl;
-    }
-  }
 private:
   std::set<int> chunkSizes;
 
