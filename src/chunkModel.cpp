@@ -2,6 +2,8 @@
 
 #include "chunkModel.h"
 
+
+
 //TODO: I don't like the name of this function
 void ChunkModel::addLine(std::string line) {
   std::string word;
@@ -27,13 +29,25 @@ void ChunkModel::addLine(std::string line) {
   chunks = chunk(word, phonemes.size());
 
 
+  //add each chunk-phoneme pair to the model
   for (int i = 0; i < chunks.size(); ++i) {
+    // skip if the word contains non-letter characters
+    if (!isLetters(chunks[i])) continue;
+
+    if (chunks[i].length() > max.length()) max = chunks[i];
+
     addChunkPhonemePair(chunks[i], phonemes[i]);
+    chunkSizes.insert(chunks[i].size());
   }
+}
 
-  // pronunciations.push_back(phonemes);
-  // words.push_back(chunks)
+bool ChunkModel::isLetters(std::string word) {
+  std::locale loc;
 
+  for (int i = 0; i < word.length(); ++i) {
+    if (!std::isalpha(word[i])) return false;
+  }
+  return true;
 }
 
 void ChunkModel::addChunkPhonemePair(std::string c, std::string p){
