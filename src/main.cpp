@@ -38,12 +38,13 @@ void loadTrainingSet( std::string fileName, ChunkModel* cm){
 
 
 int main() {
-  int a = 2^3;
-  std::cout<<a<<std::endl;
+  std::string a("DICTIONARY");
 
-  // ChunkModel* cm = new ChunkModel();
-  //
-  // loadTrainingSet(DICTIONARY_FILE, cm);
+  ChunkModel* cm = new ChunkModel();
+  // std::vector<std::string> chunks = cm->chunkR(a, 9);
+  // for (int i = 0;i < chunks.size();++i) std::cout << chunks[i] << '\n';
 
+  loadTrainingSet(DICTIONARY_FILE, cm);
+  std::cout<<cm->count<<std::endl;
   //cm->print("data/matrix.txt");
 }

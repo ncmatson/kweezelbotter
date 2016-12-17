@@ -8,11 +8,15 @@
 #include <locale>
 #include <set>
 
+#include <random>
+
 #include "model.h"
 
 class ChunkModel : public Model {
 public:
   ChunkModel();
+
+  int count;
 
   void addLine(std::string line);
   void addChunkPhonemePair(std::string chunk, std::string phoneme);
@@ -20,8 +24,12 @@ public:
   //this will be moved to private
   std::vector<std::vector<std::string>> chunkUnknown(std::string unknown);
 
+  //revised
+  std::vector<std::string> chunkR(const std::string& str, int num);
 private:
   std::set<int> chunkSizes;
+
+  std::vector<std::string> chunk(const std::string& str, int num);
 
 
   // checks if a string is all letters
@@ -37,7 +45,6 @@ private:
   int chunkTogether(const std::string& str, int i);
 
   // splits a words into chunks such that there are <num> chunks
-  std::vector<std::string> chunk(const std::string& str, int num);
 
 };
 

@@ -2,12 +2,13 @@
 
 #include "chunkModel.h"
 
-ChunkModel::ChunkModel() {}
+ChunkModel::ChunkModel() {
+  count = 0;
+}
 
 std::vector<std::vector<std::string>> chunkUnknown(std::string unknown) {
   int maxChunkSize = 3;
   std::vector<std::vector<std::string>> chunks;
-
 
 
 
@@ -100,7 +101,7 @@ bool ChunkModel::isVowel(char c) {
  */
 int ChunkModel::chunkTogether(const std::string& str, int i) {
   //if the last letter -> don't chunk
-  if (i == str.length() - 1) return false;
+  if (i == str.length() - 1) return 0;
 
   switch (str[i]) {
     case 'A':
@@ -112,7 +113,6 @@ int ChunkModel::chunkTogether(const std::string& str, int i) {
       if (isVowel(str[i+1])) {
         // if next TWO letters are vowels ->CHUNK two of em
         if (isVowel(str[i+2])) {return 2;}
-        return 1;
       }
     }
     case 'T': {
@@ -150,6 +150,25 @@ std::vector<std::string> ChunkModel::chunk(const std::string& str, int num) {
   }
 
   //fill the last chunk wih the rest of the string
+  if (i < str.length()) { result.push_back(str.substr(i)); }
+
+  return result;
+}
+
+std::vector<std::string> ChunkModel::chunkR(const std::string& str, int num) {
+  std::vector<std::string> result;
+
+  std::random_device rd;
+  std::mt19937 eng(rd());
+
+  int i;
+  for (i = 0; i < str.length() && i < (num-1);){
+    std::uniform_int_distribution<> distr(1, 3);
+    int r = distr(eng);
+    result.push_back(str.substr(i, r));
+    i += r;
+  }
+
   if (i < str.length()) { result.push_back(str.substr(i)); }
 
   return result;
