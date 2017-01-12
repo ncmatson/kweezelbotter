@@ -4,9 +4,6 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
-#include <vector>
-#include <string>
-
 template <class K, class V>
 class Element {
 protected:
