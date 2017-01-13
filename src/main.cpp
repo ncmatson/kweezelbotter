@@ -1,5 +1,16 @@
 #include <iostream>
 
+#include "model.h"
+
 int main() {
-  std::cout<<"hello world"<<std::endl;
+
+  Chunk chunk("K");
+  Chunk phoneme("k");
+
+  Model model;
+
+  model.addChunkPhonemePair(chunk, phoneme);
+
+  std::cout<<model[0].getChunk().getFrequency()<<std::endl;
+
 }

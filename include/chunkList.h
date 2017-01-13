@@ -4,14 +4,15 @@
 #include "row.h"
 #include "chunk.h"
 
-class ChunkList : Row<Chunk> {
+class ChunkList : public Row<Chunk> {
 public:
   ChunkList();
   ChunkList(Chunk chunk);
 
-  Chunk getChunk();
+  Chunk& getChunk();
   std::vector<Chunk> getPhonemes();
 
+  int addPhoneme(Chunk phoneme);
 
 };
 

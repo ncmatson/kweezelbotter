@@ -1,8 +1,8 @@
 #include "chunk.h"
-
+#include <iostream>
 Chunk::Chunk() : Element("", 0) {}
 
-Chunk::Chunk(std::string name) : Element(name, 1) {}
+Chunk::Chunk(std::string name) : Element(name, 0) {}
 
 Chunk::~Chunk() {}
 
@@ -12,4 +12,8 @@ std::string Chunk::getName() {
 
 int Chunk::getFrequency() {
   return Element::getValue();
+}
+
+void Chunk::incrementFrequency() {
+  value++;
 }

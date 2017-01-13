@@ -34,7 +34,6 @@ public:
 
 template <class T>
 Matrix<T>::Matrix() {
-  rows = std::vector<T>(1);
 }
 
 template <class T>

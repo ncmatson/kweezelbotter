@@ -23,7 +23,7 @@ public:
   ~Row ();
 
   //returns the primary element of the row
-  T getPrimary();
+  T& getPrimary();
 
   //returns the column vector
   std::vector<T> getColumns() ;
@@ -42,9 +42,7 @@ public:
 // Implementation
 
 template <class T>
-Row<T>::Row() {
-  columns = std::vector<T>(1);
-}
+Row<T>::Row() {}
 
 template <class T>
 Row<T>::Row(T element) {
@@ -55,7 +53,7 @@ template <class T>
 Row<T>::~Row () {}
 
 template <class T>
-T Row<T>::getPrimary() {
+T& Row<T>::getPrimary() {
   return primary;
 }
 

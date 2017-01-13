@@ -5,7 +5,7 @@
 
 #include "element.h"
 
-class Chunk : Element<std::string, int> {
+class Chunk : public Element<std::string, int> {
 private:
 
 public:
@@ -16,6 +16,8 @@ public:
 
   std::string getName();
   int getFrequency();
+
+  void incrementFrequency();
 };
 
 #endif //CHUNK_H
