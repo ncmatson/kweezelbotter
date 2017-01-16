@@ -28,8 +28,6 @@ class Kweezelbotter:
             split_index = len(word) / 2
             first_half  = word[:split_index]
             second_half = word[split_index:]
-            print "Sample size for ", word, " was ", sample_size
-            print "Trying for ", first_half, "and ", second_half
 
             chunks = [self.chunk(first_half), self.chunk(second_half)]
             return Utils.flatten(chunks)

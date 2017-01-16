@@ -1,4 +1,3 @@
-python test/kweezelbotter_test.py
-python test/dictionary_test.py
-python test/isolator_test.py
-python test/utils_test.py
+for filename in test/*_test.py; do
+  python $filename
+done
