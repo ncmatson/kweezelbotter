@@ -23,6 +23,7 @@ setup(
     name='kweezelbotter',
     version='0.0.1',
     description='A tool for pronouncing words',
+    long_description=long_description,
     url='https://github.com/ncmatson/kweezelbotter',
     license='MIT',
 )
