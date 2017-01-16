@@ -7,21 +7,21 @@ sys.path.append(os.getcwd())
 import unittest
 from kweezelbotter.kweezelbotter import Kweezelbotter
 
-TEST_DICTIONARY= './test/support/test_dict.txt'
+TEST_DICTIONARY = 'support/test_dict.txt'
+TEST_WORD       = "kweezelbotter"
 
 class KweezelbotterTestCase(unittest.TestCase):
     """Tests for Kweezelbotter"""
 
     def setUp(self):
-        self.kweezelbotter = Kweezelbotter()
+        self.kweezelbotter = Kweezelbotter(TEST_WORD)
 
-    def test_uses_correct_dict_path(self):
-        self.assertEqual(self.kweezelbotter.dict_path, "./dict/dict.txt")
+    def test_initializes_correctly(self):
+        self.assertEqual(self.kweezelbotter.dictionary, "./dict/dict.txt")
+        self.assertEqual(self.kweezelbotter.word, TEST_WORD)
 
     def test_sets_dictionary(self):
-        self.assertEqual(self.kweezelbotter.dictionary, "./dict/dict.txt")
-
-        kweezelbotter.set_dictionary(TEST_DICTIONARY)
+        self.kweezelbotter.set_dictionary(TEST_DICTIONARY)
         self.assertEqual(self.kweezelbotter.dictionary, TEST_DICTIONARY)
 
     def test_chunks_word_correctly(self):

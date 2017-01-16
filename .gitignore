@@ -2,3 +2,5 @@
 dict/
 kweezyenv/
 kweezelbotter/__pycache__
+*.pyc
+.env

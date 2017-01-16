@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/kweezyenv/bin/python
 # -*- coding: utf-8 -*-
 
 import os
