@@ -1,40 +1,35 @@
 from dictionary import Dictionary
 from isolator   import Isolator
+from utils      import Utils
 
-DICTIONARY_PATH = "./test/support/test_dict.txt"
+DICTIONARY_PATH = "../test/support/test_dict.txt"
 
 class Kweezelbotter:
 
     def __init__(self, word):
-        self.dict_path   = DICTIONARY_PATH
-        self.word_chunks = chunk(word)
-        self.phoneme     = self.fetch_phoneme()
+        self.dictionary = Dictionary(DICTIONARY_PATH)
+        self.isolator   = Isolator(self.dictionary.model)
 
-    def fetch_phoneme(self):
-        dictionary = Dictionary(self.dict_path).dictionary
-        for chunk in self.word_chunks:
-            phonemes = []
-            for word, phoneme in dictionary.items():
-                if chunk in word
-                    phonemes.append(phoneme)
+    def pronounce(self, word):
+        pronunciation = []
+        for chunk in self.chunk(word):
+            phoneme = self.isolator.isolate_phoneme(chunk)
+            pronunciation.append(phoneme)
 
-        return Isolator(phonemes).sequence
+        return pronunciation.join(" ")
 
+    def chunk(self, word):
+        filtered_dict = self.dictionary.filter(word)
+        sample_size   = len(filtered_dict)
 
-    def get_phoneme(self):
-        return self.phoneme
+        if sample_size > 2:
+            return [word]
+        else:
+            split_index = len(word) / 2
+            first_half  = word[:split_index]
+            second_half = word[split_index:]
+            print "Sample size for ", word, " was ", sample_size
+            print "Trying for ", first_half, "and ", second_half
 
-    def set_phoneme(self, phoneme):
-        self.phoneme = phoneme
-
-    def get_dictionary(self):
-        return self.dictionary
-
-    def set_dictionary(self, dict_path):
-        self.dictionary = dict_path
-
-    def get_word(self):
-        return self.word
-
-    def set_word(self, word):
-        self.word = word
+            chunks = [self.chunk(first_half), self.chunk(second_half)]
+            return Utils.flatten(chunks)

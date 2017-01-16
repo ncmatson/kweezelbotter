@@ -1,9 +1,10 @@
 class Dictionary:
 
     def __init__(self, dict_path):
-        self.dictionary = process_dict(dict_path)
+        self.model = Dictionary.load(dict_path)
 
-    def process_dict(path):
+    @staticmethod
+    def load(path):
         dictionary = {}
         with open(path, 'r') as f:
             for line in f:
@@ -13,3 +14,6 @@ class Dictionary:
                 dictionary[word] = phoneme
 
         return dictionary
+
+    def filter(self, word):
+        return {k:v for (k, v) in self.model.items() if word.upper() in k}
