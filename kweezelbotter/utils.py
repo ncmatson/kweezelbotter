@@ -11,3 +11,10 @@ class Utils:
                 flat_list.append(el)
 
         return flat_list
+
+    @staticmethod
+    def max_by_length(s1, s2):
+        if len(s1) > len(s2):
+            return s1, s2
+        else:
+            return s2, s1

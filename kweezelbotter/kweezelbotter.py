@@ -8,7 +8,7 @@ class Kweezelbotter:
 
     def __init__(self):
         self.dictionary = Dictionary(DICTIONARY_PATH)
-        self.isolator   = Isolator(self.dictionary.model)
+        self.isolator   = Isolator(self.dictionary)
 
     def pronounce(self, word):
         pronunciation = []
