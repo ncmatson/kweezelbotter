@@ -18,7 +18,7 @@ class Kweezelbotter:
 
         return " ".join(pronunciation)
 
-    def chunk(self, word):
+    def chunkC(self, word):
         filtered_dict = self.dictionary.filter(word)
         sample_size   = len(filtered_dict)
 
@@ -31,3 +31,29 @@ class Kweezelbotter:
 
             chunks = [self.chunk(first_half), self.chunk(second_half)]
             return Utils.flatten(chunks)
+
+    def chunk(self, word):
+        chunks = []
+        start_index = 0
+        end_index = 1
+
+        while True:
+            chunk = word[start_index:end_index]
+            if (end_index >= len(word)):
+                chunks.append(chunk)
+                break
+
+            filtered_dict = self.dictionary.filter(chunk)
+            sample_size = len(filtered_dict)
+
+            if (sample_size > 2):
+                end_index = end_index + 1
+
+            else:
+                end_index = end_index - 1
+                chunk = word[start_index:end_index]
+                chunks.append(chunk)
+                start_index = end_index
+                end_index= end_index + 1
+
+        return chunks
