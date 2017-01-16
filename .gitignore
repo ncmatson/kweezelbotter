@@ -1,2 +1,4 @@
 .DS_Store
 dict/
+kweezyenv/
+kweezelbotter/__pycache__
