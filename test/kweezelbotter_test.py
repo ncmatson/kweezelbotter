@@ -9,7 +9,7 @@ class KweezelbotterTestCase(unittest.TestCase):
     """Tests for Kweezelbotter"""
 
     def setUp(self):
-        self.kweezelbotter = Kweezelbotter(TEST_WORD)
+        self.kweezelbotter = Kweezelbotter()
 
     def test_chunks_word_correctly(self):
         chunks = self.kweezelbotter.chunk(TEST_WORD)

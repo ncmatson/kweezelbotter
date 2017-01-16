@@ -6,7 +6,7 @@ DICTIONARY_PATH = "../test/support/test_dict.txt"
 
 class Kweezelbotter:
 
-    def __init__(self, word):
+    def __init__(self):
         self.dictionary = Dictionary(DICTIONARY_PATH)
         self.isolator   = Isolator(self.dictionary.model)
 
