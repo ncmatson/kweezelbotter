@@ -2,7 +2,7 @@ from dictionary import Dictionary
 from isolator   import Isolator
 from utils      import Utils
 
-DICTIONARY_PATH = "../test/support/test_dict.txt"
+DICTIONARY_PATH = '../test/support/test_dict.txt'
 
 class Kweezelbotter:
 
@@ -18,7 +18,7 @@ class Kweezelbotter:
 
         return " ".join(pronunciation)
 
-    def chunkC(self, word):
+    def chunkG(self, word):
         filtered_dict = self.dictionary.filter(word)
         sample_size   = len(filtered_dict)
 
@@ -38,22 +38,36 @@ class Kweezelbotter:
         end_index = 1
 
         while True:
+            # pick off a chunk from the word
             chunk = word[start_index:end_index]
-            if (end_index >= len(word)):
+
+            # if there is nothing left to chunk, add chunk to chunks
+            if (end_index > len(word)):
                 chunks.append(chunk)
                 break
 
-            filtered_dict = self.dictionary.filter(chunk)
-            sample_size = len(filtered_dict)
-
-            if (sample_size > 2):
-                end_index = end_index + 1
-
             else:
-                end_index = end_index - 1
-                chunk = word[start_index:end_index]
-                chunks.append(chunk)
-                start_index = end_index
-                end_index= end_index + 1
+                # find all words in dictionary that contain the chunk
+                filtered_dict = self.dictionary.filter(chunk)
+                sample_size = len(filtered_dict)
+
+                # if there are sufficient words, extend the chunk
+                if (sample_size > 2):
+                    end_index = end_index + 1
+
+                else:
+                    # last chunk will be atleast 2 letters long
+                    if (end_index == len(word)):
+                        end_index = end_index - 2
+                        chunk = word[start_index:end_index]
+
+                    else:
+                        end_index = end_index - 1
+                        chunk = word[start_index:end_index]
+
+                    # add to chunks and move to the next letter in the word
+                    chunks.append(chunk)
+                    start_index = end_index
+                    end_index= end_index + 1
 
         return chunks
