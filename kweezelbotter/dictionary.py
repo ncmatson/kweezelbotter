@@ -10,7 +10,7 @@ class Dictionary:
             for line in f:
                 line    = line.split(" ", 1)
                 word    = line[0]
-                phoneme = line[1]
+                phoneme = line[1].strip()
                 dictionary[word] = phoneme
 
         return dictionary

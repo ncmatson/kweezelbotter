@@ -16,7 +16,7 @@ class Kweezelbotter:
             phoneme = self.isolator.isolate_phoneme(chunk)
             pronunciation.append(phoneme)
 
-        return pronunciation.join(" ")
+        return " ".join(pronunciation)
 
     def chunk(self, word):
         filtered_dict = self.dictionary.filter(word)

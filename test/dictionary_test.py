@@ -12,12 +12,7 @@ class DictionaryTestCase(unittest.TestCase):
         self.model      = self.dictionary.model
 
     def test_initialization(self):
-        words      = self.model.keys()
-        phonemes   = self.model.values()
-        first_word = words[0]
-
-        self.assertEqual(first_word, "ABBOT")
-        self.assertEqual(self.model[first_word], "AE1 B AH0 T")
+        self.assertEqual(self.model["ABBOT"], "AE1 B AH0 T")
         self.assertEqual(len(self.model), 22)
 
     def test_filters_for_string(self):
