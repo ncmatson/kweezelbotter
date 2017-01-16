@@ -25,7 +25,7 @@ class Kweezelbotter:
         if sample_size > 2:
             return [word]
         else:
-            split_index = len(word) / 2
+            split_index = round(len(word) / 2)
             first_half  = word[:split_index]
             second_half = word[split_index:]
 

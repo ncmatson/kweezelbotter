@@ -3,7 +3,7 @@ import unittest
 from kweezelbotter import Kweezelbotter
 
 TEST_DICTIONARY = '../test/support/test_dict.txt'
-TEST_WORD       = "kweezlbotter"
+TEST_WORD       = "kweezelbotter"
 
 class KweezelbotterTestCase(unittest.TestCase):
     """Tests for Kweezelbotter"""
