@@ -30,7 +30,7 @@ class Subset:
         sub = []
         self.findSubs(len(self.word), sub, subs)
 
-        return self.getMaxScores(subs)
+        self.patterns = self.getMaxScores(subs)
 
     def applyPatterns(self, patterns):
         chunksPatterns = []
@@ -48,3 +48,7 @@ class Subset:
 
             chunksPatterns.append(chunks)
         return chunksPatterns
+
+    def chunk(self):
+        self.calculateChunkPatterns()
+        return self.applyPatterns(self.patterns)

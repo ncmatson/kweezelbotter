@@ -1,6 +1,7 @@
 from dictionary import Dictionary
 from isolator   import Isolator
 from utils      import Utils
+from subset     import Subset
 
 DICTIONARY_PATH = '../test/support/test_dict.txt'
 
@@ -18,7 +19,7 @@ class Kweezelbotter:
 
         return " ".join(pronunciation)
 
-    def chunkG(self, word):
+    def chunk1(self, word):
         filtered_dict = self.dictionary.filter(word)
         sample_size   = len(filtered_dict)
 
@@ -32,7 +33,7 @@ class Kweezelbotter:
             chunks = [self.chunk(first_half), self.chunk(second_half)]
             return Utils.flatten(chunks)
 
-    def chunk(self, word):
+    def chunk2(self, word):
         chunks = []
         start_index = 0
         end_index = 1
@@ -71,3 +72,8 @@ class Kweezelbotter:
                     end_index= end_index + 1
 
         return chunks
+
+    def chunk(self, word):
+        s = Subset(word)
+        chunk = s.chunk()
+        return chunk[0]
