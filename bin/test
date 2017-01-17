@@ -1,4 +1,4 @@
 for filename in test/*_test.py; do
-  echo "*** testing " $filename " ***"
+  echo -e "\n*** testing " $filename " ***\n"
   python $filename
 done
