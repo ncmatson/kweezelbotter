@@ -15,5 +15,13 @@ class SubsetUnitTestCase(unittest.TestCase):
 
         self.assertEqual(scores, [[2,2], [4]])
 
+    def test_chunk_given_patterns(self):
+        patterns = [[2,2], [4]]
+        s = Subset('deer')
+
+        chunks = s.applyPatterns(patterns)
+
+        self.assertEqual(chunks, [['de', 'er'], ['deer']])
+
 if __name__ == "__main__":
     unittest.main()
