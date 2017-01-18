@@ -6,34 +6,36 @@ class Subset:
     def __init__(self, word):
         self.word = word
 
-    def findSubs(self, n, r, subs):
+        # all possible chunking patterns
+        self.patterns = []
+
+        # all possible chunkings based on self.patterns
+        self.chunkings = []
+
+    # recursively calculates all possible chunking patterns
+    def findPatterns(self, n, r, patterns):
         if (n == 0):
-            subs.append(list(r))
+            patterns.append(list(r))
             return
         for i in range(1,n+1):
             r.append(i)
-            self.findSubs(n-i, r, subs)
+            self.findPatterns(n-i, r, patterns)
             r.pop()
 
-    def getMaxScores(self, subs):
-        high_scores = []
+    # product of the lengths of each chunk
+    def calculateScore(self, sub):
+        return reduce(mul, sub, 1)
 
-        scores = [[sub, reduce(mul, sub, 1)] for sub in subs]
-
-        high_score  = max([sub[1] for sub in scores])
-        high_scores = [sub[0] for sub in scores if sub[1] == high_score]
-
-        return high_scores
 
     def calculateChunkPatterns(self):
-        subs = []
         sub = []
-        self.findSubs(len(self.word), sub, subs)
+        self.findPatterns(len(self.word), sub, self.patterns)
 
-        self.patterns = self.getMaxScores(subs)
+        # sort patterns by score from highest to lowest
+        self.patterns.sort(key=self.calculateScore, reverse=True)
+
 
     def applyPatterns(self, patterns):
-        chunksPatterns = []
         for p in patterns:
             chunks = []
 
@@ -46,9 +48,12 @@ class Subset:
 
                 start = end
 
-            chunksPatterns.append(chunks)
-        return chunksPatterns
+            self.chunkings.append(chunks)
+
 
     def chunk(self):
         self.calculateChunkPatterns()
-        return self.applyPatterns(self.patterns)
+
+        self.applyPatterns(self.patterns)
+
+        return self.chunkings

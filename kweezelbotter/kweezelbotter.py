@@ -75,5 +75,5 @@ class Kweezelbotter:
 
     def chunk(self, word):
         s = Subset(word)
-        chunk = s.chunk()
-        return chunk[0]
+        chunkings = s.chunk()
+        return chunkings[0]
